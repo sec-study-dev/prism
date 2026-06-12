@@ -1,0 +1,27 @@
+{
+  "name": "Stargate Finance",
+  "chain": "ethereum",
+  "categories": [
+    "bridge"
+  ],
+  "tvl_usd_at_snapshot": 24600000,
+  "repo_url": "https://github.com/stargate-protocol",
+  "doc_urls": [
+    "https://stargateprotocol.gitbook.io/stargate/",
+    "https://stargate.finance/docs"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Stargate V1 uses a Delta algorithm for unified cross-chain liquidity pools — liquidity is balanced via credit accounting without locking to specific pairs. V2 adds the OFT (Omnichain Fungible Token) standard allowing tokens to exist natively on any chain without wrapped representation, plus AIPM routing and Hydra batched settlement.",
+  "notes": "C3' combination potential: Delta credit algorithm tracks per-chain credits — large deposits inflate credits enabling large withdrawals on another chain, exploitable by coordinating cross-chain deposits and withdrawals; veSTG gauge voting allows stakers to shift liquidity incentives across chains; pool contracts hold significant native stablecoin balances making oracle failures in liquidity accounting capable of draining the delta credit pool.",
+  "contracts": [
+    {
+      "name": "StargatePoolUSDC",
+      "address": "0xc026395860Db2d07ee33e05fE50ed7bD583189C7"
+    },
+    {
+      "name": "StargatePoolNative",
+      "address": "0x77b2043768d28E9C9aB44E1aBfC95944bcE57931"
+    }
+  ]
+}

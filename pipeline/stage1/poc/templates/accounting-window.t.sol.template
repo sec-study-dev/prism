@@ -1,0 +1,48 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface I{{MANAGER_CONTRACT}} {
+{{MANAGER_ABI_LINES}}
+}
+
+contract {{TEST_NAME}} is Test, ILockCallback {
+    address constant MANAGER = {{MANAGER_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+
+    bytes returnedData;
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(MANAGER, "{{MANAGER_CONTRACT}}");
+        vm.deal(ATTACKER, 100 ether);
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_within_lock_intermediate_state() public {
+        vm.startPrank(ATTACKER);
+
+        // === ENTER ACCOUNTING WINDOW (lock / multicall / batch) ===
+        bytes memory result = {{ENTER_LOCK_CALL}};
+
+        vm.stopPrank();
+
+        // === ASSERT FINAL SETTLEMENT BALANCED ===
+        {{FINAL_SETTLEMENT_ASSERTIONS}}
+    }
+
+    // Called by manager during lock — capture and exploit intra-lock state
+    function lockAcquired(bytes calldata data) external returns (bytes memory) {
+        // === INTRA-LOCK MULTI-STEP ===
+        {{INTRA_LOCK_ACTIONS}}
+
+        // === INTERMEDIATE STATE READ (exploit point) ===
+        {{INTERMEDIATE_READS}}
+
+        return abi.encode({{INTRA_LOCK_RETURN}});
+    }
+}
+
+interface ILockCallback {
+    function lockAcquired(bytes calldata data) external returns (bytes memory);
+}

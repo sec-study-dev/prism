@@ -1,0 +1,50 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface IHookManager {
+{{MANAGER_ABI_LINES}}
+}
+
+contract MaliciousHook {
+{{HOOK_INTERFACE_LINES}}
+
+    address public manager;
+    bytes public capturedState;
+
+    constructor(address _m) { manager = _m; }
+
+    {{HOOK_CALLBACK_BODY}}
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant MANAGER = {{MANAGER_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+    MaliciousHook hook;
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(MANAGER, "HookManager");
+        vm.deal(ATTACKER, 100 ether);
+        vm.startPrank(ATTACKER);
+        hook = new MaliciousHook(MANAGER);
+        vm.stopPrank();
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_hook_callback() public {
+        vm.startPrank(ATTACKER);
+
+        // === REGISTER OR TRIGGER HOOK ===
+        {{HOOK_REGISTRATION}}
+
+        // === TRIGGER LIFECYCLE EVENT THAT FIRES HOOK ===
+        {{LIFECYCLE_TRIGGER}}
+
+        vm.stopPrank();
+
+        // === ASSERT HOOK CALLBACK FIRED + CAPTURED INTERMEDIATE STATE ===
+        assertGt(hook.capturedState.length, 0, "hook should have fired");
+        {{POST_HOOK_ASSERTIONS}}
+    }
+}

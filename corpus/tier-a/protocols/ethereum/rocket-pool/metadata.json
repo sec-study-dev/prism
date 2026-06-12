@@ -1,0 +1,26 @@
+{
+  "name": "Rocket Pool",
+  "chain": "ethereum",
+  "categories": [
+    "lst"
+  ],
+  "tvl_usd_at_snapshot": 534670000,
+  "repo_url": "https://github.com/rocket-pool",
+  "doc_urls": [
+    "https://docs.rocketpool.net"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "rETH is a non-rebasing accumulating token: the exchange rate rETH.getExchangeRate() increases over time as staking rewards accrue. Node operators must post both ETH and RPL collateral, making RPL a protocol-level collateral asset. The Saturn upgrade (Feb 2026) introduced MEV smoothing and new validator lifecycle hooks.",
+  "notes": "C3' combination potential: rETH exchange rate updates are visible on-chain and updated less frequently than market prices — window between updates creates predictable arbitrage when on-chain rate diverges from market; rETH used as collateral in Aave/MakerDAO so rate-update timing affects liquidation thresholds; RPL collateral requirement means RPL price manipulation could cause validator exits, affecting rETH supply.",
+  "contracts": [
+    {
+      "name": "rETH",
+      "address": "0xae78736Cd615f374D3085123A210448E74Fc6393"
+    },
+    {
+      "name": "RocketDepositPool",
+      "address": "0xDD3f50F8A6CafbE9b31a427582963f465E745AF8"
+    }
+  ]
+}

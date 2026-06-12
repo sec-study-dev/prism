@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface I{{TARGET_CONTRACT}} {
+{{TARGET_ABI_LINES}}
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant TARGET = {{TARGET_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(TARGET, "{{TARGET_CONTRACT}}");
+        vm.deal(ATTACKER, 100 ether);
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_invariant_breaks() public {
+        // === CAPTURE INVARIANT PRE-STATE ===
+        uint256 invariantBefore = {{INVARIANT_LHS_EXPR}};
+        uint256 invariantBoundBefore = {{INVARIANT_RHS_EXPR}};
+        assertLe(invariantBefore, invariantBoundBefore, "invariant should hold initially");
+
+        vm.startPrank(ATTACKER);
+
+        // === ACTIONS THAT BREAK INVARIANT ===
+        {{BREAKING_ACTIONS}}
+
+        vm.stopPrank();
+
+        // === CAPTURE INVARIANT POST-STATE ===
+        uint256 invariantAfter = {{INVARIANT_LHS_EXPR}};
+        uint256 invariantBoundAfter = {{INVARIANT_RHS_EXPR}};
+
+        // === INVARIANT VIOLATION DEMONSTRATED ===
+        assertGt(invariantAfter, invariantBoundAfter, "invariant should be violated after actions");
+    }
+}

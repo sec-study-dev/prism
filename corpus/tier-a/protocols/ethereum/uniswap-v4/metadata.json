@@ -1,0 +1,19 @@
+{
+  "name": "Uniswap V4",
+  "chain": "ethereum",
+  "categories": ["dex-clmm"],
+  "tvl_usd_at_snapshot": 501440000,
+  "repo_url": "https://github.com/Uniswap/v4-core",
+  "doc_urls": [
+    "https://docs.uniswap.org/contracts/v4/overview",
+    "https://app.uniswap.org/whitepaper-v4.pdf"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Uniswap V4 is a singleton architecture with lifecycle hooks (before/afterSwap, before/afterAddLiquidity, before/afterRemoveLiquidity, before/afterInitialize) and flash accounting via EIP-1153 transient storage — balances are only settled at end of a lock scope, allowing mid-execution token borrowing without collateral. Supports native ETH and dynamic per-transaction fees.",
+  "notes": "C3' combination potential: highest-potential Ethereum CLMM — hook contracts execute arbitrary logic at swap lifecycle, enabling cross-protocol reads (Aave borrow rate, oracle prices) mid-swap; flash accounting via transient storage allows collateral-free within-lock borrowing spanning any pool operation, structurally more powerful than standard flashloans; freshly deployed (late 2024), composability assumptions not yet fully stress-tested.",
+  "contracts": [
+    { "name": "PoolManager", "address": "0x000000000004444c5dc75cB358380D2e3dE08A90" },
+    { "name": "PositionManager", "address": "0xbD216513d74C8cf14cf4747E6AaA6420FF64ee9e" }
+  ]
+}

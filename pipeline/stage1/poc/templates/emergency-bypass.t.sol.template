@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface I{{TARGET_CONTRACT}} {
+{{TARGET_ABI_LINES}}
+}
+
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant TARGET = {{TARGET_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(TARGET, "{{TARGET_CONTRACT}}");
+        vm.deal(ATTACKER, 100 ether);
+        {{ATTACKER_PRESETUP}}
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_emergency_bypass() public {
+        vm.startPrank(ATTACKER);
+
+        // === SHOW NORMAL PATH WOULD BLOCK ===
+        // (optional: vm.expectRevert + normal call)
+
+        // === TRIGGER EMERGENCY PATH WITH RELAXED CONSTRAINTS ===
+        uint256 attackerBalBefore = {{BALANCE_BEFORE_EXPR}};
+        {{EMERGENCY_CALL}}
+        uint256 attackerBalAfter = {{BALANCE_AFTER_EXPR}};
+
+        vm.stopPrank();
+
+        // === ASSERTIONS ===
+        assertGt(attackerBalAfter, attackerBalBefore, "emergency path should extract assets");
+    }
+}

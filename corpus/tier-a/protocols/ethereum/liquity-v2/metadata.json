@@ -1,0 +1,27 @@
+{
+  "name": "Liquity V2",
+  "chain": "ethereum",
+  "categories": [
+    "stablecoin-cdp"
+  ],
+  "tvl_usd_at_snapshot": 82190000,
+  "repo_url": "https://github.com/liquity/bold",
+  "doc_urls": [
+    "https://docs.liquity.org/v2",
+    "https://www.liquity.org/blog/liquity-v2-is-live"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Liquity V2 introduces user-set interest rates on individual troves, creating an on-chain interest rate market. BOLD is an immutable stablecoin (no admin keys). The redemption mechanism allows any BOLD holder to redeem against the lowest-interest-rate trove via a sorted linked list ordered by interest rate.",
+  "notes": "C3' combination potential: sorted trove list by interest rate is publicly readable — bots can front-run interest rate changes to position a trove for or against redemption; redemption is the sole arbitrage peg mechanism (no admin fallback) creating a direct link between collateral ratios and BOLD market price; user-set rates create game-theoretic competition among trove owners to avoid being the lowest-rate redemption target.",
+  "contracts": [
+    {
+      "name": "BoldToken",
+      "address": "0x6440f144b7e50D6a8439336510312d2F54beB01D"
+    },
+    {
+      "name": "CollateralRegistry",
+      "address": "0xf949982B91C8c61e952B3bA942cbbfaef5386684"
+    }
+  ]
+}

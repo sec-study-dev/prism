@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface IOracle {
+    function latestAnswer() external view returns (int256);
+}
+
+interface I{{TARGET_CONTRACT}} {
+{{TARGET_ABI_LINES}}
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant TARGET = {{TARGET_ADDRESS}};
+    address constant ORACLE = {{ORACLE_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(TARGET, "{{TARGET_CONTRACT}}");
+        vm.label(ORACLE, "Oracle");
+        vm.deal(ATTACKER, 1000 ether);
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_oracle_manipulation() public {
+        int256 priceBefore = IOracle(ORACLE).latestAnswer();
+
+        vm.startPrank(ATTACKER);
+
+        // === MANIPULATE ORACLE (e.g. via swap on thin pool) ===
+        {{MANIPULATION_ACTIONS}}
+
+        // === TRIGGER DEPENDENT FUNCTION ===
+        uint256 attackerBalBefore = {{BALANCE_BEFORE_EXPR}};
+        {{DEPENDENT_CALL}}
+        uint256 attackerBalAfter = {{BALANCE_AFTER_EXPR}};
+
+        vm.stopPrank();
+
+        // === ASSERTIONS ===
+        int256 priceAfter = IOracle(ORACLE).latestAnswer();
+        assertTrue(priceBefore != priceAfter || {{ORACLE_SHIFT_EXPR}}, "oracle should shift");
+        assertGt(attackerBalAfter, attackerBalBefore, "attacker should profit from oracle gap");
+    }
+}

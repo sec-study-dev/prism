@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface I{{TARGET_CONTRACT}} {
+{{TARGET_ABI_LINES}}
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant TARGET = {{TARGET_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("ETH_RPC_URL"), {{FORK_BLOCK}});
+        vm.label(TARGET, "{{TARGET_CONTRACT}}");
+        vm.deal(ATTACKER, 100 ether);
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}() public {
+        vm.startPrank(ATTACKER);
+
+        // === MECHANISM TRIGGER ===
+        {{TRIGGER_CALL}}
+
+        // === STATE-CHANGE ASSERTIONS ===
+        {{STATE_ASSERTIONS}}
+
+        vm.stopPrank();
+    }
+}

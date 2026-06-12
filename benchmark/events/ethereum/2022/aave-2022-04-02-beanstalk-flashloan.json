@@ -1,0 +1,18 @@
+{
+  "event_id": "aave-2022-04-02-beanstalk-flashloan",
+  "tx_hash": "0xcd314668aaa9bbfebaf1a0bd2b6553d01dd58899c508d4729fa7311dc5d33652",
+  "chain": "ethereum",
+  "fork_block": 14595905,
+  "involved_protocols": ["Aave", "Uniswap"],
+  "involved_mechanisms": ["flashloan", "governance-vote", "deposit", "withdraw"],
+  "profit_usd": 182000000,
+  "victim_set": ["Beanstalk-protocol-treasury"],
+  "event_type": "exploit",
+  "disclosure_date": "2022-04-17",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "rekt", "url": "https://rekt.news/beanstalk-rekt/"},
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2022-04/Beanstalk_exp.sol"}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "bad.missing_provenance",
+  "chain": "ethereum",
+  "trigger": { "kind": "function-call", "entry_point": "X.f()" },
+  "state_reads": [], "state_writes": [],
+  "preconditions": [], "postconditions": [],
+  "invariants_held": [], "invariants_at_risk": [],
+  "deps": [],
+  "tags": ["function-callable"],
+  "poc": { "path": "x", "test_name": "y", "status": "draft" }
+}

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "harvest-finance.flashloan",
+    "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "FlashLender.flashLoan"},
+    "state_reads": [],
+    "state_writes": [],
+    "preconditions": [],
+    "postconditions": [],
+    "invariants_held": [],
+    "invariants_at_risk": [],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["flashloan"],
+    "poc": {
+      "path": "poc/harvest-flashloan.t.sol",
+      "test_name": "test_harvest_flashloan",
+      "status": "passing"
+    },
+    "provenance": [
+      {"kind": "code", "url_or_path": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2020-10/Harvest_exp.sol", "section_or_lines": "flashLoan call"}
+    ]
+  },
+  {
+    "id": "curve-finance.exchange",
+    "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "StableSwap.exchange"},
+    "state_reads": [],
+    "state_writes": [
+      {
+        "contract": "StableSwap",
+        "variable": "balances",
+        "solidity_type": "uint256[2]",
+        "purpose": "records updated token amounts held in pool after exchange, shifting reserve ratio"
+      }
+    ],
+    "preconditions": [
+      {"kind": "balance-check", "expression": "USDC balanceOf(msg.sender) >= dx"}
+    ],
+    "postconditions": [
+      {"kind": "state-relation", "expression": "balances[i] increases by dx; balances[j] decreases by dy"}
+    ],
+    "invariants_held": [],
+    "invariants_at_risk": [],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["dex-amm"],
+    "poc": {
+      "path": "poc/harvest-curve-exchange.t.sol",
+      "test_name": "test_curve_exchange_price_impact",
+      "status": "passing"
+    },
+    "provenance": [
+      {"kind": "code", "url_or_path": "https://github.com/curvefi/curve-contract/blob/master/contracts/pools/3pool/StableSwap3Pool.vy", "section_or_lines": "exchange()"}
+    ]
+  },
+  {
+    "id": "harvest-finance.vault-deposit",
+    "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "HarvestVault.deposit"},
+    "state_reads": [
+      {
+        "contract": "StableSwap",
+        "variable": "virtual_price",
+        "solidity_type": "uint256",
+        "purpose": "read pool virtual price per share to compute vault share value at deposit time"
+      }
+    ],
+    "state_writes": [
+      {
+        "contract": "HarvestVault",
+        "variable": "shares",
+        "solidity_type": "uint256",
+        "purpose": "mints vault shares for depositor based on share-asset ratio derived from pool price"
+      }
+    ],
+    "preconditions": [
+      {"kind": "balance-check", "expression": "USDC balanceOf(msg.sender) >= amount"}
+    ],
+    "postconditions": [
+      {"kind": "state-relation", "expression": "shares_minted = amount * totalSupply / (virtual_price * totalAssets)"}
+    ],
+    "invariants_held": [],
+    "invariants_at_risk": [
+      {
+        "expression": "vault share price faithfully reflects underlying pool value",
+        "risk_context": "vault reads live Curve virtual_price at deposit time; a same-tx pool manipulation inflating or deflating the price causes attacker to receive mis-priced shares",
+        "scope": "cross-protocol"
+      }
+    ],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["share-asset-pricing", "yield-vault"],
+    "poc": {
+      "path": "poc/harvest-vault-deposit.t.sol",
+      "test_name": "test_harvest_deposit_at_manipulated_price",
+      "status": "passing"
+    },
+    "provenance": [
+      {"kind": "code", "url_or_path": "https://github.com/harvest-finance/harvest/blob/master/contracts/Vault.sol", "section_or_lines": "deposit()"}
+    ]
+  },
+  {
+    "id": "harvest-finance.vault-withdraw",
+    "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "HarvestVault.withdraw"},
+    "state_reads": [
+      {
+        "contract": "StableSwap",
+        "variable": "virtual_price",
+        "solidity_type": "uint256",
+        "purpose": "read pool virtual price per share to compute asset redemption amount at withdrawal time"
+      }
+    ],
+    "state_writes": [
+      {
+        "contract": "HarvestVault",
+        "variable": "shares",
+        "solidity_type": "uint256",
+        "purpose": "burns vault shares on redemption, reducing total share supply"
+      }
+    ],
+    "preconditions": [
+      {"kind": "balance-check", "expression": "shares balanceOf(msg.sender) >= shares_to_burn"}
+    ],
+    "postconditions": [
+      {"kind": "state-relation", "expression": "assets_out = shares_to_burn * virtual_price * totalAssets / totalSupply"}
+    ],
+    "invariants_held": [],
+    "invariants_at_risk": [
+      {
+        "expression": "vault withdrawal price correctly reflects restored pool state",
+        "risk_context": "vault exit reads live Curve virtual_price; if price was restored to normal between deposit and withdrawal, attacker captures the spread",
+        "scope": "protocol-wide"
+      }
+    ],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["share-asset-pricing", "yield-vault"],
+    "poc": {
+      "path": "poc/harvest-vault-withdraw.t.sol",
+      "test_name": "test_harvest_withdraw_profit_extraction",
+      "status": "passing"
+    },
+    "provenance": [
+      {"kind": "code", "url_or_path": "https://github.com/harvest-finance/harvest/blob/master/contracts/Vault.sol", "section_or_lines": "withdraw()"}
+    ]
+  }
+]

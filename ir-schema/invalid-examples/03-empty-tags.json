@@ -1,0 +1,12 @@
+{
+  "id": "bad.empty_tags",
+  "chain": "ethereum",
+  "trigger": { "kind": "function-call", "entry_point": "X.f()" },
+  "state_reads": [], "state_writes": [],
+  "preconditions": [], "postconditions": [],
+  "invariants_held": [], "invariants_at_risk": [],
+  "deps": [],
+  "tags": [],
+  "poc": { "path": "x", "test_name": "y", "status": "draft" },
+  "provenance": [{ "kind": "doc", "url_or_path": "u", "section_or_lines": "s" }]
+}

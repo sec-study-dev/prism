@@ -1,0 +1,18 @@
+{
+  "event_id": "yearn-2021-02-04-ydai-vault",
+  "tx_hash": "0x59faab5a1911618064f1ffa1e4649d85c99cfd9f0d64dcebbc1af7d7630da98b",
+  "chain": "ethereum",
+  "fork_block": 11792182,
+  "involved_protocols": ["Yearn Finance", "Aave", "Curve Finance"],
+  "involved_mechanisms": ["flashloan", "share-asset-pricing", "deposit", "withdraw", "accounting-window"],
+  "profit_usd": 2800000,
+  "victim_set": ["Yearn-v1-yDAI-vault-depositors"],
+  "event_type": "exploit",
+  "disclosure_date": "2021-02-04",
+  "subset_class": "M",
+  "classification_rationale": "The exploit targets the share-asset-pricing mechanism of Yearn v1 yDAI vault, which reads the Curve 3pool spot price to compute share NAV. By repeatedly imbalancing the 3pool with flash-loan-funded swaps, the attacker forces the vault to deposit and withdraw at systematically disadvantageous share-to-asset ratios, extracting value through rounding accumulated across 11 transactions. The accounting-window between vault deposit and the 3pool price restoration is the mechanism-level vulnerability.",
+  "sources": [
+    {"kind": "other", "url": "https://github.com/yearn/yearn-security/blob/master/disclosures/2021-02-04.md"},
+    {"kind": "rekt", "url": "https://rekt.news/yearn-finance-rekt/"}
+  ]
+}

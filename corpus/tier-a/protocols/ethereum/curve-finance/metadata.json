@@ -1,0 +1,20 @@
+{
+  "name": "Curve Finance",
+  "chain": "ethereum",
+  "categories": ["dex-amm", "gauge-ve"],
+  "tvl_usd_at_snapshot": 1549000000,
+  "repo_url": "https://github.com/curvefi",
+  "doc_urls": [
+    "https://docs.curve.finance",
+    "https://resources.curve.finance"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Curve uses the StableSwap invariant for near-zero slippage on correlated assets plus a ve/gauge system (veCRV time-lock, weekly gauge weight votes directing CRV emissions) and crvUSD with LLAMMA — a continuous liquidation AMM that converts collateral to stablecoin gradually as price falls, avoiding cliff liquidations.",
+  "notes": "C3' combination potential: extremely high — veCRV controls CRV emission routing across all gauges, enabling protocols like Convex to extract economic rent; StableSwap amplification parameter A creates price-impact timing windows; donation patterns to pool contracts shift the internal D invariant; crvUSD LLAMMA exchange rate is readable and consumed by downstream protocols as a price source.",
+  "contracts": [
+    { "name": "StableSwap3Pool", "address": "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7" },
+    { "name": "TriCRV", "address": "0x4eBdF703948ddCEA3B11f675B4D1Fba9d2414A14" },
+    { "name": "crvUSDControllerWstETH", "address": "0x100dAa78fC509Db39Ef7D04DE0c1ABD299f4C6CE" }
+  ]
+}

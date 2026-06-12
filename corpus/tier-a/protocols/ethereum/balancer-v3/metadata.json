@@ -1,0 +1,27 @@
+{
+  "name": "Balancer V3",
+  "chain": "ethereum",
+  "categories": [
+    "dex-amm"
+  ],
+  "tvl_usd_at_snapshot": 500000000,
+  "repo_url": "https://github.com/balancer/balancer-v3-monorepo",
+  "doc_urls": [
+    "https://docs.balancer.fi",
+    "https://docs-v3.balancer.fi"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Balancer V3 redesigns the Vault to separate pool accounting from logic: pools wrap ERC-4626 assets at Vault level, and the Vault uses flash accounting (balances checked only at end of a batch operation). Hooks allow custom logic at swap/add-liquidity/remove-liquidity lifecycle points.",
+  "notes": "C3' combination potential: ERC-4626 integration at Vault level means divergence between external vault reported price and market price creates sandwichable windows; flash accounting spans any pool operation so tokens can be borrowed from pool reserves without collateral within the callback, analogous to an uncollateralized flash loan.",
+  "contracts": [
+    {
+      "name": "Vault",
+      "address": "0xbA1333333333a1BA1108E8412f11850A5C319bA9"
+    },
+    {
+      "name": "Router",
+      "address": "0xAE563E3f8219521950555F5962419C8919758Ea2"
+    }
+  ]
+}

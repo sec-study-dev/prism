@@ -1,0 +1,27 @@
+{
+  "name": "Pendle Finance",
+  "chain": "ethereum",
+  "categories": [
+    "yield-vault"
+  ],
+  "tvl_usd_at_snapshot": 1124000000,
+  "repo_url": "https://github.com/pendle-finance",
+  "doc_urls": [
+    "https://docs.pendle.finance",
+    "https://pendle.gitbook.io/pendle-academy"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Pendle splits yield-bearing tokens into Principal Tokens (PT, zero-coupon bond redeemable 1:1 at maturity) and Yield Tokens (YT, which stream all yield to the holder until maturity). The AMM uses a custom asymptotic curve that prices PT at a time-value discount to par, converging to 1 at maturity. A SY (Standardized Yield) wrapper abstracts ERC-4626 and custom yield sources.",
+  "notes": "C3' combination potential: PT price is the on-chain interest rate oracle for yield assets — Pendle's AMM spot price is manipulable via large swaps and consumed by protocols setting borrow rates; SY wrapper reads external exchange rates (e.g., wstETH/ETH) to compute yield streaming — divergence between SY-reported rate and market rate creates PT/YT arbitrage; post-maturity PT redeems exactly 1:1 enabling multi-leg pre/post-maturity strategies.",
+  "contracts": [
+    {
+      "name": "PendleRouterV4",
+      "address": "0x888888888889758F76e7103c6CbF23ABbF58F946"
+    },
+    {
+      "name": "PendleYieldContractFactory",
+      "address": "0xdF3601014686674e53d1Fa52F7602525483F9122"
+    }
+  ]
+}

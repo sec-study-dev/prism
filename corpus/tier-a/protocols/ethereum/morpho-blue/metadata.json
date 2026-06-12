@@ -1,0 +1,26 @@
+{
+  "name": "Morpho Blue",
+  "chain": "ethereum",
+  "categories": [
+    "lending"
+  ],
+  "tvl_usd_at_snapshot": 3843000000,
+  "repo_url": "https://github.com/morpho-org/morpho-blue",
+  "doc_urls": [
+    "https://docs.morpho.org"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Morpho Blue is a singleton contract with isolated, immutable markets (five parameters fixed at creation: collateral, loan asset, oracle, IRM, LLTV). Interest accrues as shares that appreciate relative to assets (ERC-4626-style), and each market settles independently with no governance modifiable after deployment.",
+  "notes": "C3' combination potential: immutable market parameters mean oracle manipulation directly translates to position manipulation with no TWAP delay; borrow shares auto-compound per second, making liquidation prices time-predictable; permissionless market creation allows anyone to deploy a market with a custom oracle Morpho trusts; MetaMorpho vault reallocations shift utilization and rates instantaneously across markets.",
+  "contracts": [
+    {
+      "name": "Morpho",
+      "address": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+    },
+    {
+      "name": "AdaptiveCurveIRM",
+      "address": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC"
+    }
+  ]
+}

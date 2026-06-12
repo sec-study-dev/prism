@@ -1,0 +1,26 @@
+{
+  "name": "EigenCloud (EigenLayer)",
+  "chain": "ethereum",
+  "categories": [
+    "lrt"
+  ],
+  "tvl_usd_at_snapshot": 6618000000,
+  "repo_url": "https://github.com/Layr-Labs",
+  "doc_urls": [
+    "https://docs.eigenlayer.xyz"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "EigenLayer enables restaking — ETH staked on Ethereum consensus layer (or LST tokens) can be pledged to Actively Validated Services (AVSs). Operators opt into AVSs and can be slashed by the AVS slasher contract under AVS-defined conditions; slashing events cascade to reduce the operator's podOwnerShares and weaken security guarantees to all their AVSs.",
+  "notes": "C3' combination potential: slashing mechanism is external-state-reading by design — AVS contracts determine when to slash, so any AVS with misconfigured slashing conditions can be triggered by an adversarial restaker; delegation model allows any address to receive delegated shares from users, creating share-accounting race conditions; AVS reward distribution off-chain with on-chain claiming creates timing windows between reward computation and claiming.",
+  "contracts": [
+    {
+      "name": "DelegationManager",
+      "address": "0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A"
+    },
+    {
+      "name": "StrategyManager",
+      "address": "0x858646372CC42E1A627fcE94aa7A7033e7CF075A"
+    }
+  ]
+}

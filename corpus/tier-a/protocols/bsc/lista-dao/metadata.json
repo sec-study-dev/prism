@@ -1,0 +1,32 @@
+{
+  "name": "Lista DAO",
+  "chain": "bsc",
+  "categories": [
+    "lst",
+    "stablecoin-cdp"
+  ],
+  "tvl_usd_at_snapshot": 603200000,
+  "repo_url": "https://github.com/lista-dao/lista-dao",
+  "doc_urls": [
+    "https://docs.bsc.lista.org",
+    "https://docs.bsc.lista.org/introduction/collateral-debt-position-lisusd"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Lista DAO combines slisBNB liquid staking (BNB delegated to validators, rewards reflected via increasing slisBNB/BNB exchange rate) with lisUSD CDP minting backed by slisBNB collateral. A PSM module allows 1:1 lisUSD ↔ USDT/USDC swaps, and an on-chain oracle reads slisBNB exchange rate directly from ListaStakeManager rather than an external oracle.",
+  "notes": "C3' combination potential: slisBNB exchange rate errors propagate to both Lista CDP and Venus Protocol (which accepts slisBNB as collateral); 7-day BNB unbonding creates a structural liquidity premium exploitable via secondary market arbitrage; PSM drains if lisUSD depegs until DAO governance rebalances; October 2022 predecessor exploit (Helio Protocol via Ankr aBNBc manipulation) demonstrated that any protocol accepting slisBNB derivatives is vulnerable to underlying LST manipulation.",
+  "contracts": [
+    {
+      "name": "slisBNB",
+      "address": "0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B"
+    },
+    {
+      "name": "lisUSD",
+      "address": "0x0782b6d8c4551B9760e74c0545a9bCD90bdc41E5"
+    },
+    {
+      "name": "Interaction",
+      "address": "0xB68443Ee3e828baD1526b3e0Bdf2Dfc6b1975ec4"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Stargate BSC",
+  "chain": "bsc",
+  "categories": [
+    "bridge"
+  ],
+  "tvl_usd_at_snapshot": 21940000,
+  "repo_url": "https://github.com/stargate-protocol",
+  "doc_urls": [
+    "https://stargate.finance/docs",
+    "https://stargateprotocol.gitbook.io/stargate/"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Stargate BSC uses the same Delta algorithm unified cross-chain liquidity system as the Ethereum deployment, holding USDT/USDC/BUSD pools for cross-chain transfers. BSC credits in the Delta algorithm affect Ethereum and vice versa, and veSTG gauge weight voting on Ethereum also affects BSC pool fee splits.",
+  "notes": "C3' combination potential: same cross-chain credit asymmetry as Ethereum Stargate — a large BSC deposit inflates credits enabling large Ethereum withdrawals; BSC's higher transaction volume and lower gas costs make cross-chain credit attacks via Stargate cheaper to execute from BSC side; veSTG accumulated on Ethereum controls BSC pool reward splits, creating cross-chain governance manipulation surface.",
+  "contracts": [
+    {
+      "name": "StargatePoolUSDT",
+      "address": "0x138EB30f73BC423c6455C53df6D89CB01d9eBc63"
+    }
+  ]
+}

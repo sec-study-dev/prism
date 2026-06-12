@@ -1,0 +1,75 @@
+{
+  "id": "example_token.batch_transfer",
+  "chain": "bsc",
+  "trigger": {
+    "kind": "function-call",
+    "entry_point": "ExampleToken.batchTransfer(address[],uint256[])",
+    "conditions": ["recipients.length == amounts.length"]
+  },
+  "state_reads": [
+    {
+      "contract": "ExampleToken",
+      "variable": "_balances[msg.sender]",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Source balance check"
+    }
+  ],
+  "state_writes": [
+    {
+      "contract": "ExampleToken",
+      "variable": "_balances",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Decrement sender, increment each recipient"
+    }
+  ],
+  "preconditions": [
+    {
+      "kind": "require",
+      "expression": "recipients.length == amounts.length",
+      "is_present": true
+    },
+    {
+      "kind": "missing-require",
+      "expression": "totalAmount = sum(amounts); require(_balances[msg.sender] >= totalAmount)",
+      "is_present": false
+    },
+    {
+      "kind": "missing-require",
+      "expression": "for-each amount: require(amount > 0)",
+      "is_present": false
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "state-relation",
+      "expression": "sum(_balances delta) should equal 0"
+    }
+  ],
+  "invariants_held": [],
+  "invariants_at_risk": [
+    {
+      "expression": "ERC-20 totalSupply == sum(_balances)",
+      "risk_context": "Missing aggregate balance check + missing per-amount check can lead to overflow/underflow patterns that mint or burn tokens during transfer",
+      "scope": "protocol-wide"
+    }
+  ],
+  "deps": [
+    { "kind": "token-standard", "ref": "ERC20" }
+  ],
+  "tags": [
+    "function-callable",
+    "validation-gap"
+  ],
+  "poc": {
+    "path": "ir-schema/examples/poc/02-batch-transfer-validation-gap.t.sol",
+    "test_name": "test_batchTransfer_validationGap",
+    "status": "passing"
+  },
+  "provenance": [
+    {
+      "kind": "code",
+      "url_or_path": "https://example.com/Token.sol",
+      "section_or_lines": "L123-L145"
+    }
+  ]
+}

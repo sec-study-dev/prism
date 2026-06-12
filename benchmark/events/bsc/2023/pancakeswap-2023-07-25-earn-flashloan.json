@@ -1,0 +1,18 @@
+{
+  "event_id": "pancakeswap-2023-07-25-earn-flashloan",
+  "tx_hash": "0xf23caabb55e7eed01f0b4b0b5b46dd7e7db7e3bad1ceaef5d5c2478a0e4b75de",
+  "chain": "bsc",
+  "fork_block": 30051563,
+  "involved_protocols": ["PancakeSwap"],
+  "involved_mechanisms": ["flashloan", "swap", "deposit", "withdraw"],
+  "profit_usd": 320000,
+  "victim_set": ["EarnCraft-vault-pool"],
+  "event_type": "exploit",
+  "disclosure_date": "2023-07-25",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/EarnCraft_exp.sol"},
+    {"kind": "slowmist", "url": "https://slowmist.medium.com/earncraft-attack-analysis-2023"}
+  ]
+}

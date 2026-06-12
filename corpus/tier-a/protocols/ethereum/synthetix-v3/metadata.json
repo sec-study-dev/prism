@@ -1,0 +1,22 @@
+{
+  "name": "Synthetix V3",
+  "chain": "ethereum",
+  "categories": [
+    "perp"
+  ],
+  "tvl_usd_at_snapshot": 40970000,
+  "repo_url": "https://github.com/Synthetixio/synthetix-v3",
+  "doc_urls": [
+    "https://docs.synthetix.io"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Synthetix V3 uses a modular vault-pool-market architecture where vaults hold collateral, pools combine vaults and connect to markets, and markets handle position accounting. Perps V3 settles via async orders (keeper-filled at next oracle price), with a velocity-based funding rate model where rate momentum accumulates over time based on skew rather than using a simple skew-proportional formula.",
+  "notes": "C3' combination potential: async order model creates a window between submission and fill where Pyth oracle price can move, enabling latency arbitrage; velocity funding rate model produces predictable funding rate trajectories exploitable via offsetting positions across time; Pool-Market-Vault separation means strategies creating a skewed market also reduce vault collateral health. sub-threshold accepted by user decision (TVL $40.97M < $50M Ethereum threshold; BSC perp ecosystem gap means this is the best available Ethereum mainnet perp representative).",
+  "contracts": [
+    {
+      "name": "CoreProxy",
+      "address": "0xffffffaEff0B96Ea8e4f94b2253f31abdD875847"
+    }
+  ]
+}

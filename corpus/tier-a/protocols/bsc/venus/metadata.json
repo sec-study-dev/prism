@@ -1,0 +1,31 @@
+{
+  "name": "Venus Protocol",
+  "chain": "bsc",
+  "categories": [
+    "lending",
+    "stablecoin-cdp"
+  ],
+  "tvl_usd_at_snapshot": 1188000000,
+  "repo_url": "https://github.com/VenusProtocol",
+  "doc_urls": [
+    "https://docs-v4.venus.io"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Venus combines Compound-style money markets (vTokens) with its own VAI stablecoin minting against vToken collateral. Venus Prime is a yield-boost program (non-transferable NFT + staked XVS = boosted APY). A Peg Stability Module (PSM) allows 1:1 VAI ↔ USDT/USDC swaps. A 2023 XVS oracle manipulation incident demonstrated TWAP-based oracle vulnerabilities.",
+  "notes": "C3' combination potential: dominant BSC lending protocol — liquidation bots monitor Venus health factors against PancakeSwap/Chainlink prices; 2023 XVS oracle manipulation incident confirmed BSC TWAP is manipulable with sufficient capital and short timeframe; Venus Prime basis trade: protocols can stake XVS for boosted APY while holding opposite XVS position on a perp DEX; PSM drainable if VAI depegs, similar to MakerDAO PSM attack vector.",
+  "contracts": [
+    {
+      "name": "Comptroller",
+      "address": "0xfD36E2c2a6789Db23113685031d7F16329158384"
+    },
+    {
+      "name": "vBNB",
+      "address": "0xA07c5b74C9B40447a954e1466938b865b6BBea36"
+    },
+    {
+      "name": "VAI",
+      "address": "0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7"
+    }
+  ]
+}

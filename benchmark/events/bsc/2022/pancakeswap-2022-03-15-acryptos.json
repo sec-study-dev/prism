@@ -1,0 +1,18 @@
+{
+  "event_id": "pancakeswap-2022-03-15-acryptos",
+  "tx_hash": "0x0c8ed26b4ecce0d32b6a54d0b0a04da2cfbd2b5b25d17e2ea4bc48e5ab00a8d5",
+  "chain": "bsc",
+  "fork_block": 16223561,
+  "involved_protocols": ["PancakeSwap", "Venus Protocol"],
+  "involved_mechanisms": ["flashloan", "swap", "deposit", "borrow", "oracle-price-manipulation"],
+  "profit_usd": 4000000,
+  "victim_set": ["ACryptoS-ACS-ACSI-farming-pools"],
+  "event_type": "exploit",
+  "disclosure_date": "2022-03-15",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2022-03/ACryptoS_exp.sol"},
+    {"kind": "slowmist", "url": "https://slowmist.medium.com/acryptos-acsi-attack-analysis-5b85c2cb4c53"}
+  ]
+}

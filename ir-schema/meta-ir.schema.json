@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prism.research/schemas/meta-ir.schema.json",
+  "title": "PRISM Meta-IR Mechanism",
+  "description": "v1 — co-evolved with Stage 1 on Tier-A; schema is closed (no new top-level fields), tags are open.",
+  "type": "object",
+  "required": [
+    "id", "chain", "trigger",
+    "state_reads", "state_writes",
+    "preconditions", "postconditions",
+    "invariants_held", "invariants_at_risk",
+    "deps", "tags", "poc", "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+\\.[a-z0-9_-]+$",
+      "description": "<protocol>.<mechanism_name> in kebab/snake case"
+    },
+    "chain": {
+      "type": "string",
+      "enum": ["ethereum", "bsc"]
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["kind", "entry_point"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["function-call", "hook-callback", "state-change", "lifecycle-point"]
+        },
+        "entry_point": {
+          "type": "string",
+          "description": "Contract.function signature or hook identifier"
+        },
+        "conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "state_reads": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/state_access" }
+    },
+    "state_writes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/state_access" }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/condition" }
+    },
+    "postconditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/condition" }
+    },
+    "invariants_held": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/invariant" }
+    },
+    "invariants_at_risk": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/invariant_at_risk" }
+    },
+    "deps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/dep" }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "minItems": 1
+    },
+    "poc": {
+      "type": "object",
+      "required": ["path", "test_name", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "test_name": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["passing", "draft"],
+          "description": "Final Stage-1 outputs must be 'passing'; 'draft' allowed only during Tier-A iteration"
+        }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/provenance_item" },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "state_access": {
+      "type": "object",
+      "required": ["contract", "variable", "purpose"],
+      "additionalProperties": false,
+      "properties": {
+        "contract": { "type": "string" },
+        "variable": { "type": "string" },
+        "solidity_type": { "type": "string" },
+        "purpose": { "type": "string" }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["kind", "expression"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "require", "missing-require",
+            "access-control",
+            "balance-check", "state-relation",
+            "external-call-result"
+          ]
+        },
+        "expression": { "type": "string" },
+        "is_present": { "type": "boolean" }
+      }
+    },
+    "invariant": {
+      "type": "object",
+      "required": ["expression"],
+      "additionalProperties": false,
+      "properties": {
+        "expression": { "type": "string" },
+        "scope": {
+          "type": "string",
+          "enum": ["mechanism-local", "protocol-wide", "cross-protocol"]
+        }
+      }
+    },
+    "invariant_at_risk": {
+      "type": "object",
+      "required": ["expression", "risk_context"],
+      "additionalProperties": false,
+      "properties": {
+        "expression": { "type": "string" },
+        "risk_context": { "type": "string" },
+        "scope": {
+          "type": "string",
+          "enum": ["mechanism-local", "protocol-wide", "cross-protocol"]
+        }
+      }
+    },
+    "dep": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["mechanism", "protocol", "oracle", "token-standard", "flashloan-provider"]
+        },
+        "ref": { "type": "string" }
+      }
+    },
+    "provenance_item": {
+      "type": "object",
+      "required": ["kind", "url_or_path", "section_or_lines"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "enum": ["doc", "code"] },
+        "url_or_path": { "type": "string" },
+        "section_or_lines": { "type": "string" }
+      }
+    }
+  }
+}

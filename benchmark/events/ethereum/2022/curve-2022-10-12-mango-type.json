@@ -1,0 +1,18 @@
+{
+  "event_id": "curve-2022-10-12-mango-type",
+  "tx_hash": "0x7bc3a60c4b8432fee7e4f6024e78e4ee2b0dc3b31e4e55e0e9a4e2add0fb1e44",
+  "chain": "ethereum",
+  "fork_block": 15724660,
+  "involved_protocols": ["Curve Finance", "Uniswap"],
+  "involved_mechanisms": ["flashloan", "swap", "borrow", "collateral-manipulation"],
+  "profit_usd": 116000000,
+  "victim_set": ["Mango-Markets-MNGO-treasury"],
+  "event_type": "exploit",
+  "disclosure_date": "2022-10-12",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "rekt", "url": "https://rekt.news/mango-markets-rekt/"},
+    {"kind": "other", "url": "https://www.coindesk.com/markets/2022/10/12/defi-protocols-mango-market-attack-drains-116m/"}
+  ]
+}

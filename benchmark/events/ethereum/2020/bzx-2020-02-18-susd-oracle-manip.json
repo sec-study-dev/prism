@@ -1,0 +1,18 @@
+{
+  "event_id": "bzx-2020-02-18-susd-oracle-manip",
+  "tx_hash": "0x762881b07feb63c436dee38edd4ff1f7a74c33091e534af56c9f7d49b5ecac15",
+  "chain": "ethereum",
+  "fork_block": 9504626,
+  "involved_protocols": ["bZx", "Kyber Network", "Synthetix"],
+  "involved_mechanisms": ["flashloan", "oracle-coupling", "numerical-invariant", "borrow"],
+  "profit_usd": 600000,
+  "victim_set": ["bZx-protocol-lenders"],
+  "event_type": "exploit",
+  "disclosure_date": "2020-02-20",
+  "subset_class": "M",
+  "classification_rationale": "Attacker pumps sUSD price via Kyber, exploiting bZx's oracle-coupling to the Kyber spot price feed for collateral valuation. The numerical-invariant that 1 sUSD = $1 is violated from bZx's perspective because the protocol's collateral price oracle samples the manipulated Kyber price rather than a TWAP, enabling over-collateralized borrowing far beyond fair value.",
+  "sources": [
+    {"kind": "other", "url": "https://peckshield.medium.com/bzx-hack-ii-full-disclosure-with-detailed-profit-analysis-8126eecc1360"},
+    {"kind": "other", "url": "https://www.palkeo.com/en/projets/ethereum/bzx.html"}
+  ]
+}

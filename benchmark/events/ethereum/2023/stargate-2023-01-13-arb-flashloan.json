@@ -1,0 +1,18 @@
+{
+  "event_id": "stargate-2023-01-13-arb-flashloan",
+  "tx_hash": "0xb2463c08f63bbe3d83e7e7be9a5f1f3c9ccf5e9c2d4b89ab01cc4e28a8e7d82c",
+  "chain": "ethereum",
+  "fork_block": 16412312,
+  "involved_protocols": ["Stargate", "Uniswap"],
+  "involved_mechanisms": ["flashloan", "swap", "cross-chain-bridge", "deposit"],
+  "profit_usd": 950000,
+  "victim_set": ["Stargate-ETH-USDC-pool"],
+  "event_type": "arb",
+  "disclosure_date": "2023-01-13",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-01/Stargate_exp.sol"},
+    {"kind": "other", "url": "https://twitter.com/PeckShieldAlert/status/1613930208534949888"}
+  ]
+}

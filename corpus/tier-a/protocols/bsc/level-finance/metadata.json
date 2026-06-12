@@ -1,0 +1,19 @@
+{
+  "name": "Level Finance",
+  "chain": "bsc",
+  "categories": ["perp"],
+  "tvl_usd_at_snapshot": 4000000,
+  "repo_url": "https://github.com/LevelFinance",
+  "doc_urls": [
+    "https://docs.level.finance"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Level Finance is a fully on-chain GMX-style perpetual DEX whose liquidity is split into senior/mezzanine/junior risk tranches over a single shared multi-asset pool (LLP). Traders open leveraged positions directly against the pool; the tranche structure allocates asset exposure and PnL by seniority, while a dynamic fee model prices the pool's net skew. A Level Oracle feeds mark prices used for position settlement and liquidation.",
+  "notes": "C3' combination potential: the senior/mezzanine/junior tranche split over one shared LLP pool is a distinctive, combinable liquidity primitive — all three tranche share prices read the same underlying reserves, so a donation or skew to the pool reprices every tranche at once; the on-chain mark price comes from a readable, lag-prone Level Oracle, opening oracle-timing windows; the pool is the direct counterparty to every leveraged position with no external collateral required mid-transaction, fitting flash-loan-funded atomic strategies. Replaces ApeX as the BSC perp Tier-A pick: Level's perp engine is fully on-chain and extractable as verified source, whereas ApeX's is off-chain/CLOB. TVL is approximate (post-2023-incident decline); sub-threshold accepted by user decision, selected for mechanism novelty + on-chain extractability over raw TVL.",
+  "contracts": [
+    { "name": "Pool", "address": "0xA5aBFB56a78D2BD4689b25B8A77fd49Bb0675874" },
+    { "name": "LevelOracle", "address": "0x04Db83667F5d59FF61fA6BbBD894824B233b3693" },
+    { "name": "LvlStaking", "address": "0x08a12ffedf49fa5f149c73b07e31f99249e40869" }
+  ]
+}

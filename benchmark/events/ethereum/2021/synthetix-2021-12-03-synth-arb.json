@@ -1,0 +1,18 @@
+{
+  "event_id": "synthetix-2021-12-03-synth-arb",
+  "tx_hash": "0x7e1a8fe32df5bfb77ec5dad02b6dc428f16b07debbfa78e73e671b6d0e9b3a14",
+  "chain": "ethereum",
+  "fork_block": 13728963,
+  "involved_protocols": ["Synthetix", "Curve Finance"],
+  "involved_mechanisms": ["swap", "synth-exchange", "cross-asset-arb"],
+  "profit_usd": 2500000,
+  "victim_set": ["Synthetix-sUSD-pool", "Curve-sUSD-pool"],
+  "event_type": "arb",
+  "disclosure_date": "2021-12-03",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "other", "url": "https://blog.synthetix.io/update-on-synthetix-cross-asset-swap-arb/"},
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2021-12/Synthetix_exp.sol"}
+  ]
+}

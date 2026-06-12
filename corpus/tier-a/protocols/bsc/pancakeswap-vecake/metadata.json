@@ -1,0 +1,22 @@
+{
+  "name": "PancakeSwap veCAKE",
+  "chain": "bsc",
+  "categories": [
+    "gauge-ve"
+  ],
+  "tvl_usd_at_snapshot": 2830000000,
+  "repo_url": "https://github.com/pancakeswap/pancake-smart-contracts",
+  "doc_urls": [
+    "https://docs.pancakeswap.finance/products/vecake"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "veCAKE was PancakeSwap's vote-escrowed CAKE mechanism (lock CAKE for up to 4 years, receive veCAKE for governance and emission direction over 2-week gauge epochs with up to 2.5x gauge boost). The veCAKE/gauge voting system was deprecated in April 2025 (Tokenomics 3.0), replaced with a simplified staking model; the historical gauge architecture remains relevant for BSC gauge-ve analysis.",
+  "notes": "C3' combination potential: veCAKE gauge boost (1x to 2.5x) created predictable moments where boost dropped below threshold as veCRV-style time-decay accumulated, exploitable by bots monitoring gauge ratios; Tokenomics 3.0 deprecated the active gauge component in April 2025 — included as BSC gauge-ve representative based on historical architecture and aggregate $2.83B PancakeSwap TVL. sub-threshold accepted by user decision (veCAKE gauge system is deprecated; BSC gauge-ve gap — THENA has $4.36M TVL only, both are sub-threshold or deprecated).",
+  "contracts": [
+    {
+      "name": "VeCake",
+      "address": "0x5692DB8177a81A6c6afc8084C2976C9933EC1bAB"
+    }
+  ]
+}

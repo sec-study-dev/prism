@@ -1,0 +1,18 @@
+{
+  "event_id": "apecoin-2022-03-17-nft-airdrop-flashloan",
+  "tx_hash": "0xeb8c3bebed11e2e4fcd30cbfc2fb3c55c4ca166003c7f7d319e78eaab9747098",
+  "chain": "ethereum",
+  "fork_block": 14399999,
+  "involved_protocols": ["ApeCoin", "NFTX"],
+  "involved_mechanisms": ["flashloan", "nft-borrow", "claim", "swap"],
+  "profit_usd": 820000,
+  "victim_set": ["ApeCoin-airdrop-BAYC-holders"],
+  "event_type": "arb",
+  "disclosure_date": "2022-03-17",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "other", "url": "https://blocksecteam.medium.com/the-short-analysis-of-the-flashloan-attack-to-the-ape-airdrop-490a7d6a1479"},
+    {"kind": "other", "url": "https://medium.com/amber-group/reproducing-the-ape-airdrop-flash-loan-arbitrage-exploit-93f79728fcf5"}
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "id": "uniswap_v4.hook_pre_settlement_temp_balance",
+  "chain": "ethereum",
+  "trigger": {
+    "kind": "hook-callback",
+    "entry_point": "IHooks.beforeSwap(PoolKey,SwapParams,bytes)",
+    "conditions": ["called within an active PoolManager.lock() context"]
+  },
+  "state_reads": [
+    {
+      "contract": "PoolManager",
+      "variable": "lockData",
+      "solidity_type": "struct LockData",
+      "purpose": "Identify current lock holder and pending delta"
+    },
+    {
+      "contract": "PoolManager",
+      "variable": "currencyDelta[lockHolder][currency]",
+      "solidity_type": "mapping(address => mapping(Currency => int256))",
+      "purpose": "Net unsettled balance during lock"
+    }
+  ],
+  "state_writes": [
+    {
+      "contract": "HookContract",
+      "variable": "internalAccounting",
+      "solidity_type": "varies",
+      "purpose": "Hook may update its own bookkeeping based on pre-settlement delta"
+    }
+  ],
+  "preconditions": [
+    {
+      "kind": "access-control",
+      "expression": "msg.sender == PoolManager",
+      "is_present": true
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "state-relation",
+      "expression": "Net settlement at lock end equals sum of intra-lock deltas"
+    }
+  ],
+  "invariants_held": [
+    {
+      "expression": "currencyDelta accounting balances out at lock end",
+      "scope": "protocol-wide"
+    }
+  ],
+  "invariants_at_risk": [
+    {
+      "expression": "Hook reads currencyDelta assuming it reflects final settled balance",
+      "risk_context": "During lock, currencyDelta is a running net, not a final balance. A hook that uses it as if final can be tricked by composition of swap + transfer + donate within the same lock",
+      "scope": "cross-protocol"
+    }
+  ],
+  "deps": [
+    { "kind": "protocol", "ref": "uniswap_v4.PoolManager" }
+  ],
+  "tags": [
+    "lifecycle-hook",
+    "accounting-window",
+    "numerical-invariant"
+  ],
+  "poc": {
+    "path": "ir-schema/examples/poc/03-v4-hook-flash-accounting.t.sol",
+    "test_name": "test_hook_misreads_intra_lock_delta",
+    "status": "passing"
+  },
+  "provenance": [
+    {
+      "kind": "doc",
+      "url_or_path": "https://docs.uniswap.org/contracts/v4/concepts/flash-accounting",
+      "section_or_lines": "Flash Accounting overview"
+    },
+    {
+      "kind": "code",
+      "url_or_path": "https://github.com/Uniswap/v4-core/blob/main/src/PoolManager.sol",
+      "section_or_lines": "lock() function"
+    }
+  ]
+}

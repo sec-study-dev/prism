@@ -1,0 +1,18 @@
+{
+  "event_id": "pancakebunny-2021-05-20-bunny-mint-inflate",
+  "tx_hash": "0x88fcffc3256faac76cde4bbd0df6ea3603b1438a5a0409b2e2b91e7c2ba3371a",
+  "chain": "bsc",
+  "fork_block": 7218623,
+  "involved_protocols": ["PancakeBunny", "PancakeSwap", "ForTube"],
+  "involved_mechanisms": ["flashloan", "swap", "share-asset-pricing", "mint"],
+  "profit_usd": 45000000,
+  "victim_set": ["PancakeBunny-BUNNY-holders", "PancakeBunny-vault-stakers"],
+  "event_type": "exploit",
+  "disclosure_date": "2021-05-20",
+  "subset_class": "mixed",
+  "classification_rationale": "Basic flashloan + swap actions inflate the BNB/BUNNY AMM spot price, which then feeds into the share-asset-pricing mechanism that calculates BUNNY performance-fee mint quantity. The exploit combines basic action composition (flashloan + swap to move AMM reserves) with a share-asset-pricing oracle-coupling that determines how many BUNNY tokens are minted. The share-asset-pricing mechanism is the non-basic element that amplifies the basic AMM manipulation into a token minting event.",
+  "sources": [
+    {"kind": "other", "url": "https://medium.com/amber-group/bsc-flash-loan-attack-pancakebunny-3361b6d814fd"},
+    {"kind": "rekt", "url": "https://rekt.news/pancakebunny-rekt/"}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "event_id": "euler-2023-03-13-donate-wsteth",
+  "tx_hash": "0x62bd3d31a7b75c098ccf28bc4d4af8c4a191b4b9e451fab4232258079e8b18c4",
+  "chain": "ethereum",
+  "fork_block": 16817995,
+  "involved_protocols": ["Euler Finance", "Aave"],
+  "involved_mechanisms": ["flashloan", "validation-gap", "donate", "liquidate", "borrow"],
+  "profit_usd": 8500000,
+  "victim_set": ["Euler-Finance-wstETH-pool-depositors"],
+  "event_type": "exploit",
+  "disclosure_date": "2023-03-13",
+  "subset_class": "M",
+  "classification_rationale": "The donateToReserves() function in Euler's eToken contract has a validation-gap: it burns eTokens (collateral) but not dTokens (debt), allowing the position to become insolvent without a health check. Attacker uses this to artificially create bad debt, then self-liquidates via Euler's dynamic liquidation penalty mechanism to extract the discounted collateral. The lifecycle-hook of the donateToReserves→liquidation sequence is exploitable because the missing health check is a mechanism-level vulnerability in the eToken accounting invariant.",
+  "sources": [
+    {"kind": "rekt", "url": "https://rekt.news/euler-rekt/"},
+    {"kind": "other", "url": "https://www.chainalysis.com/blog/euler-finance-flash-loan-attack/"}
+  ]
+}

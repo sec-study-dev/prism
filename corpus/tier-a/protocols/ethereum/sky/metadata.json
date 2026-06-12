@@ -1,0 +1,28 @@
+{
+  "name": "Sky Lending (MakerDAO/Sky)",
+  "chain": "ethereum",
+  "categories": [
+    "stablecoin-cdp",
+    "lending"
+  ],
+  "tvl_usd_at_snapshot": 5732000000,
+  "repo_url": "https://github.com/makerdao",
+  "doc_urls": [
+    "https://developers.sky.money",
+    "https://docs.sky.money"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Multi-collateral CDP with Peg Stability Module (PSM) allowing 1:1 swap between USDS and approved stablecoins, a Direct Deposit Module (D3M) that autonomously mints/burns USDS into external lending protocols to control on-chain borrowing rates, and a Savings Rate (SSR/DSR) applied to deposited USDS.",
+  "notes": "C3' combination potential: D3M makes Sky a direct rate-setter in Aave money markets — D3M target rate adjustments change USDS supply instantly; PSM is a zero-slippage swap path between USDS and USDC/USDT exploitable whenever DEX pricing diverges from PSM rate; governance-controlled stability fee changes affect all open CDPs simultaneously and can be anticipated from visible governance proposals.",
+  "contracts": [
+    {
+      "name": "Vat",
+      "address": "0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B"
+    },
+    {
+      "name": "USDS",
+      "address": "0xdC035D45d973E3EC169d2276DDab16f1e407384F"
+    }
+  ]
+}

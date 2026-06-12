@@ -1,0 +1,30 @@
+{
+  "name": "THENA",
+  "chain": "bsc",
+  "categories": [
+    "gauge-ve"
+  ],
+  "tvl_usd_at_snapshot": 4360000,
+  "repo_url": "https://github.com/ThenafiBNB",
+  "doc_urls": [
+    "https://thena.fi/docs"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "THENA implements Solidly-derived ve(3,3) on BSC: veTHE is a vote-escrowed NFT representing locked THE plus time. veTHE holders vote weekly on gauge weights to direct THE emissions to liquidity pools, with 80% of protocol fees going to veTHE voters and 20% to theNFT stakers. Default gauge emission cap is 5% per pool.",
+  "notes": "C3' combination potential: ve(3,3) protocols have a documented bribery equilibrium where protocols pay veTHE voters to direct emissions to their pools; 80% fee distribution to voters makes vote-buying economically rational for protocols that can extract more than 80% of fees from a pool; separate 20% theNFT staker revenue stream can be isolated from gauge voting dynamics for targeted strategies. sub-threshold accepted by user decision (TVL $4.36M < $20M BSC threshold; BSC active gauge-ve gap — PancakeSwap veCAKE is deprecated, THENA is the only active ve(3,3) on BSC).",
+  "contracts": [
+    {
+      "name": "VotingEscrow",
+      "address": "0xfBBF371C9B0B994EebFcC977CEf603F7f31c070D"
+    },
+    {
+      "name": "VoterV3",
+      "address": "0x3A1D0952809F4948d15EBCe8d345962A282C4fCb"
+    },
+    {
+      "name": "THE",
+      "address": "0xF4C8E32EaDEC4BFe97E0F595AdD0f4450a863a11"
+    }
+  ]
+}

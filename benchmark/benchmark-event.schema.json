@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prism.research/schemas/benchmark-event.schema.json",
+  "title": "PRISM Benchmark Event",
+  "type": "object",
+  "required": [
+    "event_id", "tx_hash", "chain", "fork_block",
+    "involved_protocols", "involved_mechanisms",
+    "profit_usd", "victim_set",
+    "event_type", "disclosure_date",
+    "subset_class", "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "tx_hash": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{64}$"
+    },
+    "chain": { "type": "string", "enum": ["ethereum", "bsc"] },
+    "fork_block": { "type": "integer", "minimum": 0 },
+    "involved_protocols": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "involved_mechanisms": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Best-effort post-mortem labels; expected to overlap with seed-tags eventually but free-form for initial benchmark"
+    },
+    "profit_usd": { "type": "number" },
+    "victim_set": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "event_type": { "type": "string", "enum": ["arb", "exploit"] },
+    "disclosure_date": { "type": "string", "format": "date" },
+    "subset_class": { "type": "string", "enum": ["M", "B", "mixed"] },
+    "classification_rationale": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["defihacklabs", "rekt", "slowmist", "academic", "other"]
+          },
+          "url": { "type": "string", "format": "uri" }
+        }
+      },
+      "minItems": 1
+    }
+  }
+}

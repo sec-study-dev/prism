@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prism.research/schemas/sidecar-metrics.schema.json",
+  "title": "PRISM Sidecar Mechanism Metrics",
+  "type": "object",
+  "required": [
+    "mechanism_id", "consensus_level", "consensus_rounds",
+    "subagent_proposals", "extraction_pass", "pass2_attempts",
+    "poc_attempts", "flagged_reasons", "provenance_quality",
+    "extraction_pipeline_version", "extracted_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "mechanism_id": { "type": "string", "pattern": "^[a-z0-9_-]+\\.[a-z0-9_-]+$" },
+    "consensus_level": {
+      "type": "string",
+      "enum": ["unanimous-3of3", "majority-2of3", "resolved-after-rounds"],
+      "description": "Consensus outcome. 'resolved-after-rounds' covers any successful resolution between round 1 and the max-rounds cap (CONSENSUS_MAX_ROUNDS=5); the specific round count is in 'consensus_rounds'."
+    },
+    "consensus_rounds": { "type": "integer", "minimum": 0, "maximum": 5 },
+    "subagent_proposals": {
+      "type": "object",
+      "required": ["A", "B", "C"],
+      "additionalProperties": false,
+      "properties": {
+        "A": { "type": "string" },
+        "B": { "type": "string" },
+        "C": { "type": "string" }
+      }
+    },
+    "extraction_pass": {
+      "type": "integer",
+      "enum": [2],
+      "description": "Always 2 for DB-stored mechanisms (only Pass 2 outputs with passing PoC enter the DB)."
+    },
+    "pass2_attempts": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "poc_attempts": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "flagged_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["non-function-callable-tag", "cross-tier-a-called", "benchmark-related", "historical-incident"]
+      },
+      "minItems": 1,
+      "description": "Reasons the stub was flagged for Pass 2. minItems is 1 because only flagged mechanisms enter the DB (un-flagged stubs stay in the candidate pool, never written to mechanism-db/)."
+    },
+    "provenance_quality": {
+      "type": "string",
+      "enum": ["doc-and-code-consistent", "code-only", "doc-only-untested"]
+    },
+    "extraction_pipeline_version": { "type": "string", "pattern": "^stage1-v[0-9]+\\.[0-9]+$" },
+    "extracted_at": { "type": "string", "format": "date-time" }
+  }
+}

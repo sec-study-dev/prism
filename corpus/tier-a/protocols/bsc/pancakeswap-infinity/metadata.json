@@ -1,0 +1,22 @@
+{
+  "name": "PancakeSwap Infinity",
+  "chain": "bsc",
+  "categories": [
+    "dex-clmm"
+  ],
+  "tvl_usd_at_snapshot": 79850000,
+  "repo_url": "https://github.com/pancakeswap/pancake-smart-contracts",
+  "doc_urls": [
+    "https://docs.pancakeswap.finance/infinity"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "PancakeSwap Infinity is a hook-based singleton AMM (modeled on Uniswap V4) deployed on BSC, supporting V2-style, V3-style, and custom hook-defined curves within the same contract. Hook contracts can modify swap behavior, fee logic, or liquidity operations. Flash accounting within lock scopes enables within-lock token borrowing.",
+  "notes": "C3' combination potential: freshly deployed (2024) with limited production battle-testing — composability assumptions not yet stress-tested; hook contracts execute external code during swap, so any integrating BSC protocol may be exposed to hook-defined behavior that changes without notice; flash accounting creates within-lock borrowing surface on BSC at lower gas costs than Ethereum, making attack strategies cheaper to execute.",
+  "contracts": [
+    {
+      "name": "Vault",
+      "address": "0x238a358808379702088667322f80aC48bAd5e6c4"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Convex Finance",
+  "chain": "ethereum",
+  "categories": [
+    "gauge-ve"
+  ],
+  "tvl_usd_at_snapshot": 568870000,
+  "repo_url": "https://github.com/convex-eth/platform",
+  "doc_urls": [
+    "https://docs.convexfinance.com"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Convex wraps Curve LP positions to distribute boosted CRV without requiring individual LPs to lock veCRV. cvxCRV is a permanently locked CRV wrapper, while vlCVX (vote-locked CVX) controls how Convex votes its ~53% veCRV stash. The 16-week vlCVX lock commits vote allocation for 16 weeks, enabling a forward-looking bribery market via Votium/Hidden Hand.",
+  "notes": "C3' combination potential: cvxCRV is perpetually locked — cvxCRV/CRV peg depends on secondary market demand, and depeg affects downstream protocols accepting cvxCRV at 1:1 parity; 16-week vlCVX lock creates predictable governance epochs for modeling over/under-weighted Curve pools; Votium/Hidden Hand bribery market prices gauge votes on-chain, creating information asymmetry for gauge-aware strategies that can infer protocol demand for specific pool liquidity.",
+  "contracts": [
+    {
+      "name": "Booster",
+      "address": "0xF403C135812408BFbE8713b5A23a04b3D48AAE31"
+    },
+    {
+      "name": "CvxLockerV2",
+      "address": "0x72a19342e8F1838460eBFCCEf09F6585e32db86E"
+    }
+  ]
+}

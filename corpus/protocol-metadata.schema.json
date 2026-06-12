@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prism.research/schemas/protocol-metadata.schema.json",
+  "title": "PRISM Protocol Metadata",
+  "type": "object",
+  "required": [
+    "name", "chain", "categories", "tvl_usd_at_snapshot",
+    "repo_url", "doc_urls", "snapshot_block", "tier"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "chain": { "type": "string", "enum": ["ethereum", "bsc"] },
+    "categories": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+      "minItems": 1
+    },
+    "tvl_usd_at_snapshot": { "type": "number", "minimum": 0 },
+    "repo_url": { "type": "string", "format": "uri" },
+    "doc_urls": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "minItems": 1
+    },
+    "snapshot_block": { "type": "integer", "minimum": 0 },
+    "tier": { "type": "string", "enum": ["A", "B"] },
+    "special_mechanism_summary": { "type": "string" },
+    "notes": { "type": "string" },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "address"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "address": { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" }
+        }
+      }
+    }
+  }
+}

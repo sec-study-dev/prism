@@ -1,0 +1,30 @@
+{
+  "name": "PancakeSwap V3",
+  "chain": "bsc",
+  "categories": [
+    "dex-clmm"
+  ],
+  "tvl_usd_at_snapshot": 260340000,
+  "repo_url": "https://github.com/pancakeswap/pancake-v3-contracts",
+  "doc_urls": [
+    "https://docs.pancakeswap.finance/v3"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Concentrated liquidity (Uniswap V3 fork) with custom fee tiers (0.01%, 0.05%, 0.25%, 1%) and per-position liquidity tracking. BSC's 3-second block time makes TWAP manipulation cheaper than Ethereum (shorter blocks reduce the cost to sustain price deviation), and TWAP price output is consumed by Venus Protocol as a secondary oracle.",
+  "notes": "C3' combination potential: BSC 3-second block time means sustained 1-2 minute price deviation on PancakeSwap V3 can influence Venus oracle prices affecting liquidation thresholds; JIT (just-in-time) liquidity provision is applicable — positions placed just-in-time near current tick can front-run large swaps and capture near-all fees, a well-known MEV pattern from Ethereum Uniswap V3.",
+  "contracts": [
+    {
+      "name": "PancakeV3Factory",
+      "address": "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865"
+    },
+    {
+      "name": "NonfungiblePositionManager",
+      "address": "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364"
+    },
+    {
+      "name": "MasterChefV3",
+      "address": "0x556B9306565093C855AEA9AE92A594704c2Cd59e"
+    }
+  ]
+}

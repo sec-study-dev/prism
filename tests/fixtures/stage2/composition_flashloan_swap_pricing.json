@@ -1,0 +1,43 @@
+[
+  {
+    "id": "aave-v3.flash-loan", "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "Pool.flashLoanSimple"},
+    "state_reads": [], "state_writes": [],
+    "preconditions": [], "postconditions": [],
+    "invariants_held": [], "invariants_at_risk": [],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["flashloan"],
+    "poc": {"path": "x", "test_name": "t", "status": "passing"},
+    "provenance": [{"kind": "code", "url_or_path": "x", "section_or_lines": "L1"}]
+  },
+  {
+    "id": "curve.exchange", "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "Pool.exchange"},
+    "state_reads": [],
+    "state_writes": [{"contract": "Pool", "variable": "balances",
+                      "purpose": "updates pool token balances on swap"}],
+    "preconditions": [{"kind": "balance-check", "expression": "balanceOf(this) >= dx"}],
+    "postconditions": [],
+    "invariants_held": [], "invariants_at_risk": [],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["dex-amm"],
+    "poc": {"path": "x", "test_name": "t", "status": "passing"},
+    "provenance": [{"kind": "code", "url_or_path": "x", "section_or_lines": "L1"}]
+  },
+  {
+    "id": "curve.virtual-price-donation", "chain": "ethereum",
+    "trigger": {"kind": "function-call", "entry_point": "Pool.donate"},
+    "state_reads": [],
+    "state_writes": [{"contract": "Pool", "variable": "balances",
+                      "purpose": "donation credits token amounts to pool reserves"}],
+    "preconditions": [], "postconditions": [],
+    "invariants_held": [],
+    "invariants_at_risk": [{"expression": "get_virtual_price monotonic",
+                            "risk_context": "direct donation inflates share price",
+                            "scope": "protocol-wide"}],
+    "deps": [{"kind": "token-standard", "ref": "USDC"}],
+    "tags": ["numerical-invariant", "share-asset-pricing"],
+    "poc": {"path": "x", "test_name": "t", "status": "passing"},
+    "provenance": [{"kind": "code", "url_or_path": "x", "section_or_lines": "L1"}]
+  }
+]

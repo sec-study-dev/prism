@@ -1,0 +1,18 @@
+{
+  "event_id": "convex-2022-06-02-curve-crv",
+  "tx_hash": "0x6d3f47b9b4dede3aa8e4de0dfaad6c09aef3481ba2a61ad8fdf3a4ccdc773543",
+  "chain": "ethereum",
+  "fork_block": 14900985,
+  "involved_protocols": ["Convex Finance", "Curve Finance"],
+  "involved_mechanisms": ["swap", "flashloan", "borrow", "crvusd-liquidation"],
+  "profit_usd": 570000,
+  "victim_set": ["Convex-Finance-cvxCRV-stakers"],
+  "event_type": "arb",
+  "disclosure_date": "2022-06-02",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "other", "url": "https://twitter.com/ConvexFinance/status/1532537607804743682"},
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2022-06/Convex_exp.sol"}
+  ]
+}

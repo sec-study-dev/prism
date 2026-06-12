@@ -1,0 +1,20 @@
+{
+  "name": "Aave V3",
+  "chain": "ethereum",
+  "categories": ["lending"],
+  "tvl_usd_at_snapshot": 11182000000,
+  "repo_url": "https://github.com/aave/aave-v3-core",
+  "doc_urls": [
+    "https://aave.com/docs",
+    "https://github.com/aave/aave-v3-core/tree/master/techpaper"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "Aave V3 uses a utilization-based kink interest model with separate LTV and liquidation threshold parameters. E-Mode (efficiency mode) allows correlated assets to borrow at near-100% LTV, collapsing the collateral margin. Integrated flash loan module allows borrowing any amount up to pool reserves within one transaction for a fee.",
+  "notes": "C3' combination potential: largest Ethereum lending protocol — reserve state read by every routing and liquidation protocol; E-Mode creates near-zero margin windows enabling self-liquidation paths; Chainlink oracle has a two-block staleness window creating price-change timing gaps; flash loan premium (0.05%) leaves no collateral requirement mid-transaction making the entire pool borrowable.",
+  "contracts": [
+    { "name": "Pool", "address": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2" },
+    { "name": "PoolAddressesProvider", "address": "0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e" },
+    { "name": "AaveOracle", "address": "0x54586bE62E3c3580375aE3723C145253060Ca0C2" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "event_id": "revest-2022-03-27-reentrancy",
+  "tx_hash": "0xe0b0c2672b760bef4e2851e91c69c8c0ad135c6987bbf1f43f5846d89e691428",
+  "chain": "ethereum",
+  "fork_block": 14449625,
+  "involved_protocols": ["Revest Finance"],
+  "involved_mechanisms": ["flashloan", "reentrancy", "mint", "withdraw"],
+  "profit_usd": 11200000,
+  "victim_set": ["Revest-Finance-FNFT-vault-depositors"],
+  "event_type": "exploit",
+  "disclosure_date": "2022-03-27",
+  "subset_class": "B",
+  "classification_rationale": "",
+  "sources": [
+    {"kind": "defihacklabs", "url": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2022-03/Revest_exp.sol"},
+    {"kind": "rekt", "url": "https://rekt.news/revest-finance-rekt/"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "KernelDAO",
+  "chain": "bsc",
+  "categories": [
+    "lrt"
+  ],
+  "tvl_usd_at_snapshot": 1730000,
+  "repo_url": "https://github.com/Kernel-Labs",
+  "doc_urls": [
+    "https://docs.kerneldao.com"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "KernelDAO provides shared security infrastructure on BNB Chain, analogous to EigenLayer restaking on Ethereum, allowing BNB stakers to additionally secure Kernel-validated services. The Kelp component (rsETH, primarily on Ethereum) suffered a $292M bridge exploit in April 2026, triggering ~$5.4B in withdrawals across the restaking sector.",
+  "notes": "C3' combination potential: BSC's nascent restaking ecosystem with KernelDAO as the primary LRT representative; April 2026 Kelp bridge exploit demonstrated systemic contagion risk in restaking protocols; BNB Chain restaking architecture is emerging (2026) with unaudited composability assumptions. sub-threshold accepted by user decision (DefiLlama BSC TVL $1.73M; stated $660M is primarily Ethereum Kelp/rsETH TVL; BSC LRT coverage gap — no qualifying alternative meets C1).",
+  "contracts": [
+    {
+      "name": "StakerGateway",
+      "address": "0xb32dF5B33dBCCA60437EC17b27842c12bFE83394"
+    },
+    {
+      "name": "AssetRegistry",
+      "address": "0xd0B91Fc0a323bbb726faAF8867CdB1cA98c44ABB"
+    }
+  ]
+}

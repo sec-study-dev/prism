@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prism.research/schemas/mechanism-graph.schema.json",
+  "title": "PRISM Stage 2 Mechanism Graph",
+  "type": "object",
+  "required": ["version", "nodes", "edges"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "const": "stage2-v1" },
+    "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } }
+  },
+  "$defs": {
+    "resource": {
+      "type": "object",
+      "required": ["kind", "id", "from"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["token", "oracle", "price", "flashloan", "protocol-state", "invariant"] },
+        "id": { "type": "string" },
+        "solidity_type": { "type": "string" },
+        "from": { "type": "string" }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "chain", "protocol", "tags", "ports"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_-]+\\.[a-z0-9_-]+$" },
+        "chain": { "enum": ["ethereum", "bsc"] },
+        "protocol": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "ports": {
+          "type": "object",
+          "required": ["produces", "consumes"],
+          "additionalProperties": false,
+          "properties": {
+            "produces": { "type": "array", "items": { "$ref": "#/$defs/resource" } },
+            "consumes": { "type": "array", "items": { "$ref": "#/$defs/resource" } }
+          }
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["src", "dst", "type", "directed", "chain", "shared_resources", "provenance"],
+      "additionalProperties": false,
+      "properties": {
+        "src": { "type": "string" },
+        "dst": { "type": "string" },
+        "type": { "enum": ["sequential-dep", "state-share", "invariant-coupling", "layering"] },
+        "directed": { "type": "boolean" },
+        "chain": { "enum": ["ethereum", "bsc"] },
+        "shared_resources": { "type": "array", "items": { "$ref": "#/$defs/resource" } },
+        "provenance": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

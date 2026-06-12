@@ -1,0 +1,78 @@
+{
+  "id": "example_vault.erc4626_share_pricing",
+  "chain": "ethereum",
+  "trigger": {
+    "kind": "function-call",
+    "entry_point": "ERC4626Vault.deposit(uint256,address) and ERC4626Vault.redeem(uint256,address,address)",
+    "conditions": []
+  },
+  "state_reads": [
+    {
+      "contract": "ERC4626Vault",
+      "variable": "totalAssets()",
+      "solidity_type": "function() returns (uint256)",
+      "purpose": "Compute share price as totalAssets / totalSupply"
+    },
+    {
+      "contract": "ERC4626Vault",
+      "variable": "totalSupply",
+      "solidity_type": "uint256",
+      "purpose": "Denominator of share price"
+    }
+  ],
+  "state_writes": [
+    {
+      "contract": "ERC4626Vault",
+      "variable": "_balances",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Mint/burn shares for caller"
+    }
+  ],
+  "preconditions": [
+    {
+      "kind": "missing-require",
+      "expression": "totalSupply > MIN_SHARES guard against zero-share edge case",
+      "is_present": false
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "state-relation",
+      "expression": "shares_out = assets_in * totalSupply / totalAssets (with rounding)"
+    }
+  ],
+  "invariants_held": [
+    {
+      "expression": "Per-share asset value monotonically non-decreasing from yield",
+      "scope": "protocol-wide"
+    }
+  ],
+  "invariants_at_risk": [
+    {
+      "expression": "Share-to-asset ratio is stable over a single transaction",
+      "risk_context": "If totalAssets() is computed from external sources (token balance, donated assets, integrated yield), a same-tx donation can shift the ratio between two operations and amplify losses for the next depositor or yield strategy",
+      "scope": "cross-protocol"
+    }
+  ],
+  "deps": [
+    { "kind": "token-standard", "ref": "ERC4626" },
+    { "kind": "token-standard", "ref": "ERC20" }
+  ],
+  "tags": [
+    "function-callable",
+    "share-asset-pricing",
+    "numerical-invariant"
+  ],
+  "poc": {
+    "path": "ir-schema/examples/poc/04-erc4626-share-pricing.t.sol",
+    "test_name": "test_erc4626_share_donation_inflation",
+    "status": "passing"
+  },
+  "provenance": [
+    {
+      "kind": "doc",
+      "url_or_path": "https://eips.ethereum.org/EIPS/eip-4626",
+      "section_or_lines": "Security Considerations"
+    }
+  ]
+}

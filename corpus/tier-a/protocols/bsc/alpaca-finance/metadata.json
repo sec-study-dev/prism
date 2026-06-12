@@ -1,0 +1,22 @@
+{
+  "name": "Alpaca Finance",
+  "chain": "bsc",
+  "categories": [
+    "yield-vault"
+  ],
+  "tvl_usd_at_snapshot": 45230000,
+  "repo_url": "https://github.com/alpaca-finance",
+  "doc_urls": [
+    "https://docs.alpacafinance.org"
+  ],
+  "snapshot_block": 50000000,
+  "tier": "A",
+  "special_mechanism_summary": "Alpaca Finance offers leveraged yield farming — users borrow from Alpaca lending vaults (ibTokens with ERC-4626-style exchange rate appreciation) to open leveraged LP positions on PancakeSwap at 3–6x. The Automated Vault (Alpaca 2.0) manages leveraged positions with auto-rebalancing, and Alpaca's own liquidation engine handles undercollateralized leveraged positions.",
+  "notes": "C3' combination potential: undercollateralized leveraged farming creates a recursive capital structure where a single borrow enables 3-6x LP, and ibToken exchange rates are externally readable — a flash loan temporarily reducing ibToken exchange rate could trigger mass liquidations of leveraged positions; liquidation cascade trigger is modelable by monitoring ibToken rates and PancakeSwap LP prices together.",
+  "contracts": [
+    {
+      "name": "FairLaunch",
+      "address": "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F"
+    }
+  ]
+}

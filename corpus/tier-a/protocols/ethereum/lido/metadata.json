@@ -1,0 +1,27 @@
+{
+  "name": "Lido",
+  "chain": "ethereum",
+  "categories": [
+    "lst"
+  ],
+  "tvl_usd_at_snapshot": 18762000000,
+  "repo_url": "https://github.com/lidofinance",
+  "doc_urls": [
+    "https://docs.lido.fi",
+    "https://hackmd.io/@lido/v3-whitepaper"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "stETH is a rebasing token whose total supply increases daily as the oracle committee reports validator rewards, adjusting all holder balances proportionally without emitting transfer events. wstETH (wrapped stETH) maintains constant balance with an increasing per-share exchange rate, and wstETH.stEthPerToken() is the canonical Lido pricing function consumed by virtually every DeFi protocol.",
+  "notes": "C3' combination potential: wstETH exchange rate consumed by Aave, Compound, MakerDAO, Pendle — any oracle committee manipulation propagates to collateral ratios across the entire DeFi stack; rebasing mechanism breaks standard ERC-20 balance-snapshot accounting; daily oracle report that triggers rebase is a public event, enabling front-running of price impact across downstream protocols.",
+  "contracts": [
+    {
+      "name": "Lido",
+      "address": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+    },
+    {
+      "name": "WithdrawalQueueERC721",
+      "address": "0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1"
+    }
+  ]
+}

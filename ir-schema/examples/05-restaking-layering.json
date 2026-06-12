@@ -1,0 +1,91 @@
+{
+  "id": "example_lrt.layered_redeem",
+  "chain": "ethereum",
+  "trigger": {
+    "kind": "function-call",
+    "entry_point": "ExampleLRT.redeem(uint256 lrtShares)",
+    "conditions": ["caller holds lrtShares"]
+  },
+  "state_reads": [
+    {
+      "contract": "ExampleLRT",
+      "variable": "underlyingLST",
+      "solidity_type": "address",
+      "purpose": "Layer-below asset (LST)"
+    },
+    {
+      "contract": "underlyingLST",
+      "variable": "exchangeRate()",
+      "solidity_type": "function() returns (uint256)",
+      "purpose": "LST share-to-staked-ETH rate"
+    },
+    {
+      "contract": "ExampleLRT",
+      "variable": "lrtExchangeRate",
+      "solidity_type": "uint256",
+      "purpose": "LRT share-to-LST rate"
+    }
+  ],
+  "state_writes": [
+    {
+      "contract": "ExampleLRT",
+      "variable": "_balances",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Burn LRT shares"
+    },
+    {
+      "contract": "underlyingLST",
+      "variable": "_balances",
+      "solidity_type": "mapping(address => uint256)",
+      "purpose": "Transfer LST out to caller"
+    }
+  ],
+  "preconditions": [
+    {
+      "kind": "balance-check",
+      "expression": "ExampleLRT._balances[msg.sender] >= lrtShares",
+      "is_present": true
+    }
+  ],
+  "postconditions": [
+    {
+      "kind": "state-relation",
+      "expression": "lstAmount_out = lrtShares * lrtExchangeRate, valued at underlyingLST.exchangeRate()"
+    }
+  ],
+  "invariants_held": [
+    {
+      "expression": "LRT total supply * lrtExchangeRate ≤ LRT-held LST",
+      "scope": "protocol-wide"
+    }
+  ],
+  "invariants_at_risk": [
+    {
+      "expression": "LRT redemption price equals composition of LST rate and LRT rate at trade time",
+      "risk_context": "If LST exchangeRate updates lazily (e.g., on a separate keeper call), there is a window where LRT redemption underprices or overprices the underlying. Combined with a second LRT/LST pair or a CDP that accepts LRT as collateral, the price gap is amplified across the layering",
+      "scope": "cross-protocol"
+    }
+  ],
+  "deps": [
+    { "kind": "protocol", "ref": "underlying LST protocol" },
+    { "kind": "token-standard", "ref": "ERC20" }
+  ],
+  "tags": [
+    "function-callable",
+    "structural-layering",
+    "share-asset-pricing",
+    "oracle-coupling"
+  ],
+  "poc": {
+    "path": "ir-schema/examples/poc/05-restaking-layering.t.sol",
+    "test_name": "test_lrt_redemption_layering_price_gap",
+    "status": "passing"
+  },
+  "provenance": [
+    {
+      "kind": "doc",
+      "url_or_path": "https://example.com/lrt-docs",
+      "section_or_lines": "Redemption mechanics"
+    }
+  ]
+}

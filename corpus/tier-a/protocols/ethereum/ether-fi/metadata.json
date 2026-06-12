@@ -1,0 +1,26 @@
+{
+  "name": "ether.fi",
+  "chain": "ethereum",
+  "categories": [
+    "lrt"
+  ],
+  "tvl_usd_at_snapshot": 3751000000,
+  "repo_url": "https://github.com/etherfi-protocol",
+  "doc_urls": [
+    "https://docs.ether.fi"
+  ],
+  "snapshot_block": 22500000,
+  "tier": "A",
+  "special_mechanism_summary": "eETH is a rebasing LRT tracking ETH staking plus EigenLayer restaking rewards; weETH is its accumulating wrapper with exchange rate weETH.getEETHByWeETH(). The protocol issues validator keys non-custodially and supports multi-layer wrapping: ETH → eETH → weETH, which can then be deposited into lending protocols as collateral.",
+  "notes": "C3' combination potential: weETH exchange rate consumed by Aave, Spark for collateral valuation — the AVS reward component is variable and protocols pricing weETH using only ETH staking rate may undervalue it; multi-layer wrapping (ETH → eETH → weETH → Aave collateral) creates a deep composability chain where changes at any layer propagate; April 2026 Kelp exploit demonstrated correlated systemic risk across restaking LRT sector.",
+  "contracts": [
+    {
+      "name": "LiquidityPool",
+      "address": "0x308861A430be4cce5502d0A12724771Fc6DaF216"
+    },
+    {
+      "name": "weETH",
+      "address": "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee"
+    }
+  ]
+}
